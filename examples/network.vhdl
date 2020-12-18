@@ -1,19 +1,23 @@
 -- Import libraries for use in the code
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
+USE IEEE.float_pkg.ALL;
 
 ENTITY network IS
     PORT (
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
 
-        value_in_1 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-        value_in_2 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+        value_in_1 : IN FLOAT32;
+        value_in_2 : IN FLOAT32;
 
-        value_out : OUT STD_LOGIC_VECTOR (3 DOWNTO 0);
+        value_out : OUT FLOAT32;
 
         done : OUT STD_LOGIC
     );
+
+    SUBTYPE FLOAT32 IS float (8 DOWNTO -23);
+
 END ENTITY network;
 
 ARCHITECTURE structural OF network IS
@@ -23,10 +27,10 @@ ARCHITECTURE structural OF network IS
             clk : IN STD_LOGIC;
             reset : IN STD_LOGIC;
 
-            value_in_1 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-            value_in_2 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+            value_in_1 : IN FLOAT32;
+            value_in_2 : IN FLOAT32;
 
-            value_out_1 : OUT STD_LOGIC_VECTOR (3 DOWNTO 0)
+            value_out_1 : OUT FLOAT32
         );
     END COMPONENT layer;
 
@@ -35,7 +39,7 @@ ARCHITECTURE structural OF network IS
             clk : IN STD_LOGIC;
             reset : IN STD_LOGIC;
 
-            value_in : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+            value_in : IN FLOAT32;
 
             done : OUT STD_LOGIC
         );
@@ -50,7 +54,7 @@ BEGIN
         value_in_1 => value_in_1,
         value_in_2 => value_in_2,
 
-        value_out => value_out_1
+        value_out_1 => value_out
     );
 
     -- Only one cortex is needed per network

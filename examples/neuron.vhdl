@@ -1,7 +1,7 @@
 -- Import Libraries
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
-USE IEEE.numeric_std.ALL;
+USE IEEE.float_pkg.ALL;
 
 -- Entity declaration of controller
 ENTITY neuron IS
@@ -9,22 +9,25 @@ ENTITY neuron IS
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
 
-        value_in_1 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-        value_in_2 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+        value_in_1 : IN FLOAT32;
+        value_in_2 : IN FLOAT32;
 
-        error_in : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+        error_in : IN FLOAT32;
 
-        value_out : OUT STD_LOGIC_VECTOR (3 DOWNTO 0)
+        value_out : OUT FLOAT32
     );
+
+    SUBTYPE FLOAT32 IS float (8 DOWNTO -23);
+
 END ENTITY neuron;
 
 ARCHITECTURE behavioral OF neuron IS
-    SIGNAL weight_1 : STD_LOGIC_VECTOR (3 DOWNTO 0);
-    SIGNAL weight_2 : STD_LOGIC_VECTOR (3 DOWNTO 0);
+    SIGNAL weight_1 : FLOAT32;
+    SIGNAL weight_2 : FLOAT32;
 
-    SIGNAL learning_rate : STD_LOGIC_VECTOR (3 DOWNTO 0);
+    SIGNAL learning_rate : FLOAT32;
 
-    SIGNAL bias : STD_LOGIC_VECTOR (3 DOWNTO 0);
+    SIGNAL bias : FLOAT32;
 
 BEGIN
     PROCESS (clk, reset)

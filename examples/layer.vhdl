@@ -3,20 +3,21 @@ LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.float_pkg.ALL;
 
-SUBTYPE float32 IS float (8 DOWNTO –23);
-
 ENTITY layer IS
     PORT (
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
 
         -- Amount of neurons in previous layer
-        value_in_1 : IN float32
-        value_in_2 : IN float32
+        value_in_1 : IN FLOAT32;
+        value_in_2 : IN FLOAT32;
 
         -- Amount of neurons in next layer
-        value_out_1 : OUT float32
+        value_out_1 : OUT FLOAT32
     );
+
+    SUBTYPE FLOAT32 IS float (8 DOWNTO -23);
+
 END ENTITY layer;
 
 ARCHITECTURE structural OF layer IS
@@ -25,12 +26,12 @@ ARCHITECTURE structural OF layer IS
             clk : IN STD_LOGIC;
             reset : IN STD_LOGIC;
 
-            value_in_1 : IN float32
-            value_in_2 : IN float32
+            value_in_1 : IN FLOAT32;
+            value_in_2 : IN FLOAT32;
 
-            value_out : OUT float32
+            value_out : OUT FLOAT32;
 
-            error_in : IN float32
+            error_in : IN FLOAT32
         );
     END COMPONENT neuron;
 

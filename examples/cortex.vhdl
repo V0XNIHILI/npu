@@ -1,6 +1,7 @@
 -- Import libraries for use in the code
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
+USE IEEE.float_pkg.ALL;
 
 -- The cortex is the mananger of the whole neural network. It checks if the 
 ENTITY cortex IS
@@ -9,15 +10,17 @@ ENTITY cortex IS
         reset : IN STD_LOGIC;
 
         -- Amount of neurons in previous layer
-        value_in : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+        value_in : IN FLOAT32;
 
         -- Amount of neurons in next layer
         done : OUT STD_LOGIC
     );
+
+    SUBTYPE FLOAT32 IS float (8 DOWNTO -23);
 END ENTITY cortex;
 
 ARCHITECTURE behavioral OF cortex IS
-    SIGNAL previous_value : STD_LOGIC_VECTOR (3 DOWNTO 0);
+    SIGNAL previous_value : FLOAT32;
 
 BEGIN
     PROCESS (clk, reset)
